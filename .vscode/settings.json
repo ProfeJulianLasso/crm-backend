@@ -30,7 +30,9 @@
     "responses": "tasks",
     "delegates": "connection",
     "delegate": "connection",
-    "cqrs": "contract"
+    "cqrs": "contract",
+    "enum": "constant",
+    "enums": "constant",
   },
   "material-icon-theme.files.associations": {
     "*.exception-filter.ts": "nest-filter",
