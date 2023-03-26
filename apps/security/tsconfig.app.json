@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "outDir": "../../dist/apps/security",
+    "paths": {
+      "@security/domain": ["./src/apps/security/domain"],
+      "@security/application": ["./src/apps/security/application"],
+      "@security/infrastructure": ["./src/apps/security/infrastructure"],
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
+}

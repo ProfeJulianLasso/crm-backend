@@ -1,0 +1,34 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch backend",
+      "request": "launch",
+      "runtimeArgs": ["start:debug-backend"],
+      "runtimeExecutable": "pnpm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "preLaunchTask": "start Contexts debug",
+      "postDebugTask": "stop Contexts debug"
+    },
+    {
+      "name": "Launch security",
+      "request": "launch",
+      "runtimeArgs": ["start:debug-security"],
+      "runtimeExecutable": "pnpm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "Launch customers",
+      "request": "launch",
+      "runtimeArgs": ["start:debug-customers"],
+      "runtimeExecutable": "pnpm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    }
+  ]
+}

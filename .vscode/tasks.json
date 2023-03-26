@@ -1,0 +1,67 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "start Contexts debug",
+      "dependsOn": ["Security", "Customers"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
+    },
+    {
+      "label": "stop Contexts debug",
+      "type": "shell",
+      "command": "echo ${input:stopContexts}",
+      "presentation": {
+        "reveal": "silent",
+        "panel": "dedicated",
+        "close": true
+      }
+    },
+    {
+      "label": "Security",
+      "detail": "nest start security",
+      "type": "shell",
+      "command": "pnpm start:debug-security",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "."
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "webpack",
+          "endsPattern": "successfully"
+        }
+      }
+    },
+    {
+      "label": "Customers",
+      "detail": "nest start customers",
+      "type": "shell",
+      "command": "pnpm start:debug-customers",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "."
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "webpack",
+          "endsPattern": "successfully"
+        }
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "stopContexts",
+      "type": "command",
+      "command": "workbench.action.tasks.terminate",
+      "args": "terminateAll"
+    }
+  ]
+}

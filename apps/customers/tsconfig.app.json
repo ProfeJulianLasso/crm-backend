@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "outDir": "../../dist/apps/customers",
+    "paths": {
+      "@customers/domain": ["./src/apps/customers/domain"],
+      "@customers/application": ["./src/apps/customers/application"],
+      "@customers/infrastructure": ["./src/apps/customers/infrastructure"],
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
+}

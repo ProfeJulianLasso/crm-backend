@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+
+  mongodb:
+    image: mongo
+    restart: always
+    container_name: MongoDB
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+
+  postgres:
+    image: postgres
+    restart: always
+    container_name: PostgreSQL
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_HOST_AUTH_METHOD: md5
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq
+    restart: always
+    container_name: RabbitMQ
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./data:/var/lib/rabbitmq/mnesia/rabbit
