@@ -2,32 +2,28 @@ import {
   ValueObjectAbstract,
   ValueObjectsErrorHandlerAbstract,
 } from '@sofkau/ddd';
-import { v4 as uuid } from 'uuid';
-import { CustomerPermissions } from '../enums';
-import {
-  NameValueObject,
-  PermissionIdValueObject,
-  StateValueObject,
-} from '../value-objects/Permission';
+import { CustomerPermissions, RolePermissions } from '../enums';
+import { PermissionIdValueObject, StateValueObject } from '../value-objects';
+import { NameValueObject } from '../value-objects/permission';
 
-export interface PermissionProps {
+export type PermissionType = {
   permissionId: string;
-  name: CustomerPermissions;
+  name: CustomerPermissions | RolePermissions;
   state: boolean;
-}
+};
 
 export class Permission<
-  PropsType extends PermissionProps = PermissionProps,
+  PermissionTypeGeneric extends PermissionType = PermissionType,
 > extends ValueObjectsErrorHandlerAbstract {
   permissionId: PermissionIdValueObject;
   name: NameValueObject;
   state: StateValueObject;
 
-  constructor(props?: PropsType) {
+  constructor(props?: PermissionTypeGeneric) {
     super();
-    this._errorMessage = 'Existen errores en los Value Objects';
+    this._errorMessage = 'Existen errores en los Objectos de Valor';
 
-    this.permissionId = new PermissionIdValueObject(uuid());
+    this.permissionId = new PermissionIdValueObject();
     if (props && props.permissionId)
       this.permissionId.value = props.permissionId;
 
@@ -35,7 +31,8 @@ export class Permission<
     if (props && props.name) this.name.value = props.name;
 
     this.state = new StateValueObject(true);
-    if (props && props.state) this.state.value = props.state;
+    if (props && (props.state === false || props.state === true))
+      this.state.value = props.state;
 
     this.validateValueObjects(
       this._errorMessage,
@@ -43,7 +40,7 @@ export class Permission<
     );
   }
 
-  changeName(name: CustomerPermissions): void {
+  changeName(name: CustomerPermissions | RolePermissions): void {
     this.name.value = name.toString();
   }
 
@@ -51,7 +48,15 @@ export class Permission<
     this.state.value = state;
   }
 
-  toPrimitives(): PropsType {
+  createArrayFromValueObjects(): Array<ValueObjectAbstract<any>> {
+    const result = new Array<ValueObjectAbstract<any>>();
+    if (this.permissionId.hasValue()) result.push(this.permissionId);
+    if (this.name.hasValue()) result.push(this.name);
+    if (this.state.hasValue()) result.push(this.state);
+    return result;
+  }
+
+  toPrimitives(): PermissionTypeGeneric {
     this.validateValueObjects(
       this._errorMessage,
       this.createArrayFromValueObjects(),
@@ -60,14 +65,6 @@ export class Permission<
       permissionId: this.permissionId.valueOf(),
       name: this.name.valueOf(),
       state: this.state.valueOf(),
-    } as PropsType;
-  }
-
-  protected createArrayFromValueObjects(): Array<ValueObjectAbstract<any>> {
-    const result = new Array<ValueObjectAbstract<any>>();
-    if (this.permissionId) result.push(this.permissionId);
-    if (this.name) result.push(this.name);
-    if (this.state) result.push(this.state);
-    return result;
+    } as PermissionTypeGeneric;
   }
 }
