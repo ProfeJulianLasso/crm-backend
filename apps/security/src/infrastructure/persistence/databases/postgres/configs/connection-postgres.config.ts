@@ -15,7 +15,6 @@ export class ConnectionPostgresConfig {
       username: this.configService.get<string>('DB_USER'),
       password: this.configService.get<string>('DB_PASSWORD'),
       database: this.configService.get<string>('DB_NAME'),
-      // entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       entities: [PermissionPostgresEntity],
       synchronize: true,
       logging: true,

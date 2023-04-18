@@ -8,6 +8,6 @@ export interface IPermissionRepository<
   findAll(...options: any[]): Observable<Entity[]>;
   findById(permissionId: string): Observable<Entity>;
   save(permission: Entity): Observable<Entity>;
-  update(permissionId: string, permission: Entity): Observable<Promise<Entity>>;
+  update(permissionId: string, permission: Entity): Observable<Entity>;
   delete(permissionId: string): Observable<boolean>;
 }

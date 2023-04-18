@@ -3,9 +3,11 @@ import {
   CustomerPermissions,
   RolePermissions,
 } from 'apps/security/src/domain/enums';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, Index } from 'typeorm';
 
-@Entity('permissions')
+@Index('permissions_permission_id_key', ['permissionId'], { unique: true })
+@Index('permissions_name_key', ['name'], { unique: true })
+@Entity('permissions', { schema: 'public' })
 export class PermissionPostgresEntity implements PermissionType {
   @Column('uuid', {
     primary: true,

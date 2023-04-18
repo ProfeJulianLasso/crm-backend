@@ -1,5 +1,5 @@
 import { IUseCase } from '@sofkau/ddd';
-import { map, Observable, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Permission } from '../../domain/entities';
 import { CustomerPermissions, RolePermissions } from '../../domain/enums';
 import {
@@ -26,7 +26,6 @@ export class UpdateNamePermissionUseCase
     return this.repository
       .update(command.permissionId, permission.toPrimitives())
       .pipe(
-        tap((permission) => console.log('🗣️ Emitir evento', permission)),
         map((permission) => {
           return { data: permission } as UpdateNamePermissionResponse;
         }),
